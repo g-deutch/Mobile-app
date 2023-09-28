@@ -2,8 +2,8 @@
     <string name="app_name">gym app</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">Login</string>
+    <string name="second_fragment_label">Main Page</string>
     <string name="signIn">Sign In</string>
     <string name="signUp">Sign Up</string>
     <string name="logout">Logout</string>
@@ -27,6 +27,11 @@
     <string name="deleteWorkout">Delete Workout</string>
     <string name="create">Create</string>
     <string name="login">Login</string>
+    <string name="search_fragment_label">Search</string>
+    <string name="workouts_fragment_label">Workouts</string>
+    <string name="settings_fragment_label">Settings</string>
+    <string name="my_workouts_fragment_label">My Workouts</string>
+    <string name="sign_up_fragment_label">Sign Up</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

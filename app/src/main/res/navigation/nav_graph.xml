@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_SignUpFragment"
+            app:destination="@id/SignUpFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -23,6 +26,71 @@
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_SearchFragment"
+            app:destination="@+id/SearchFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_WorkoutsFragment"
+            app:destination="@id/WorkoutsFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.example.gymapp.SearchFragment"
+        android:label="@string/search_fragment_label"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_SearchFragment_to_Second_Fragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/WorkoutsFragment"
+        android:name="com.example.gymapp.WorkoutsFragment"
+        android:label="@string/workouts_fragment_label"
+        tools:layout="@layout/fragment_workouts">
+
+        <action
+            android:id="@+id/action_WorkoutsFragment_to_MyWorkoutsFragment"
+            app:destination="@id/MyWorkoutsFragment" />
+        <action
+            android:id="@+id/action_WorkoutsFragment_to_SettingsFragment"
+            app:destination="@id/SettingsFragment" />
+        <action
+            android:id="@+id/action_WorkoutsFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MyWorkoutsFragment"
+        android:name="com.example.gymapp.MyWorkoutsFragment"
+        android:label="@string/my_workouts_fragment_label"
+        tools:layout="@layout/fragment_my_workouts">
+
+        <action
+            android:id="@+id/action_MyWorkoutsFragment_to_WorkoutsFragment"
+            app:destination="@id/WorkoutsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="com.example.gymapp.SettingsFragment"
+        android:label="@string/settings_fragment_label"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/action_SettingsFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SignUpFragment"
+        android:name="com.example.gymapp.SignUpFragment"
+        android:label="@string/sign_up_fragment_label"
+        tools:layout="@layout/fragment_sign_up">
+
+        <action
+            android:id="@+id/action_SignUpFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
