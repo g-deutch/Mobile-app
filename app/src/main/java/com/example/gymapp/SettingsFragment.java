@@ -36,12 +36,6 @@ public class SettingsFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.backButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SettingsFragment.this)
-                        .navigate(R.id.action_SettingsFragment_to_SecondFragment);
-            }
-        });
+
     }
 }

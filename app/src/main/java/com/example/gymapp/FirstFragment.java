@@ -33,7 +33,7 @@ public class FirstFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        getActivity().setTitle("Sign In"); //idk why this won't change the title
+        //getActivity().setTitle("Sign In"); //idk why this won't change the title
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
@@ -42,9 +42,9 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        usernameEditText = view.findViewById(R.id.username_entry);
-        passwordEditText = view.findViewById(R.id.password_entry);
+/*
+        //usernameEditText = view.findViewById(R.id.username_entry);
+        //passwordEditText = view.findViewById(R.id.password_entry);
         Button signInButton = view.findViewById(R.id.sign_in_button);
 
         binding.signInButton.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class FirstFragment extends Fragment {
                 } else {
                     Toast.makeText(getActivity(), "Invalid username or password.", Toast.LENGTH_SHORT).show();
                 }
-                */
+                //
             }
         });
         binding.signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +77,10 @@ public class FirstFragment extends Fragment {
 
             }
         });
+        */
+
     }
+
 
     @Override
     public void onDestroyView() {

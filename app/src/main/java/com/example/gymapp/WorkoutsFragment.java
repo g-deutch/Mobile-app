@@ -35,26 +35,6 @@ public class WorkoutsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.viewWorkoutsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(WorkoutsFragment.this)
-                        .navigate(R.id.action_WorkoutsFragment_to_MyWorkoutsFragment);
-            }
-        });
-        binding.settingsWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(WorkoutsFragment.this)
-                        .navigate(R.id.action_WorkoutsFragment_to_SettingsFragment);
-            }
-        });
-        binding.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(WorkoutsFragment.this)
-                        .navigate(R.id.action_WorkoutsFragment_to_SecondFragment);
-            }
-        });
+
     }
 }

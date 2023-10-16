@@ -36,12 +36,6 @@ public class SearchFragment extends Fragment {
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.backButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(SearchFragment.this)
-                        .navigate(R.id.action_SearchFragment_to_Second_Fragment);
-            }
-        });
+
     }
 }

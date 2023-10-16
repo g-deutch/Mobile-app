@@ -45,34 +45,7 @@ public class SignUpFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Find UI elements by their IDs
-        EditText usernameEditText = view.findViewById(R.id.username_input);  // Updated ID
-        EditText passwordEditText = view.findViewById(R.id.password_input);  // Updated ID
-        Button signUpButton = view.findViewById(R.id.create_account_button);
-        Button backButton = view.findViewById(R.id.back_button5);
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                username = usernameEditText.getText().toString();
-                password = passwordEditText.getText().toString();
-                if(!password.equals("")) {
-                    if (users.containsKey(username)) {
-                        Toast.makeText(getActivity(), "Username already taken", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
-                        users.put(username, password);
 
-                        NavHostFragment.findNavController(SignUpFragment.this)
-                                .navigate(R.id.action_SignUpFragment_to_FirstFragment);
-                        backButton.performClick();
-
-                    }
-                    usernameEditText.setText("");
-                    passwordEditText.setText("");
-                } else {
-                    Toast.makeText(getActivity(), "Must input password", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
 /*
