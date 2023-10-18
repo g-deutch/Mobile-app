@@ -32,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity {
     private static  EditText passwordEditText;
     private static Button signUpButton;
     private static Button backButton;
-    private static Map<String, String> users = new HashMap<>();
+    private static final Map<String, String> users = new HashMap<>();
     private String username;
     private String password;
     @Override
@@ -56,8 +56,12 @@ public class SignUpActivity extends AppCompatActivity {
                 password = passwordEditText.getText().toString();
                 if(!password.equals("")) {
                     if (users.containsKey(username)) {
+                        //Username exists within Firebase
+                        //--Clear text fields and print error message
                         Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
                     } else {
+                        //New valid username
+                        //--Clear text fields print success message
                         Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
                         users.put(username, password);
 
@@ -68,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
                     usernameEditText.setText("");
                     passwordEditText.setText("");
                 } else {
+
                     Toast.makeText(SignUpActivity.this, "Must input password", Toast.LENGTH_SHORT).show();
                 }
             }
