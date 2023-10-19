@@ -22,19 +22,71 @@ import com.example.gymapp.databinding.ActivityMainBinding;
 import java.util.HashMap;
 import java.util.Map;
 
+//
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import androidx.annotation.NonNull;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
+
+
+
+
 public class SignUpActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-
     private static final String TAG = "SignUp";
     private static  EditText usernameEditText;
     private static  EditText passwordEditText;
+    private static  EditText emailEditText;
     private static Button signUpButton;
     private static Button backButton;
-    private static final Map<String, String> users = new HashMap<>();
     private String username;
+    private String email;
     private String password;
+    private static final Map<String, String> users = new HashMap<>();
+
+    private FirebaseAuth mAuth;
+
+    public class User {
+        private final String username;
+        private final String email;
+        private final String password;
+
+        public User(String username, String email, String password) {
+            this.username = username;
+            this.email = email;
+            this.password = password;
+        }
+    }
+
+    private void signUp(String email, String password, String user) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign-up successful
+                            Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                            String userId = firebaseUser.getUid();
+                            User newUser = new User(user, email, password);
+
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference usersRef = database.getReference("users");
+                            usersRef.child(userId).setValue(newUser);
+                            finish();
+                        } else {
+                            // Sign-up failed
+                            Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +94,10 @@ public class SignUpActivity extends AppCompatActivity {
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_sign_up);
 
-        //setSupportActionBar(binding.toolbar);
+        //This line makes the app crash when going to sign up page
+        //mAuth = FirebaseAuth.getInstance();
 
+        emailEditText = findViewById(R.id.email_input);
         usernameEditText = findViewById(R.id.username_input);
         passwordEditText = findViewById(R.id.password_input);
         signUpButton = findViewById(R.id.create_account_button);
@@ -54,27 +108,28 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 username = usernameEditText.getText().toString();
                 password = passwordEditText.getText().toString();
-                if(!password.equals("")) {
-                    if (users.containsKey(username)) {
-                        //Username exists within Firebase
-                        //--Clear text fields and print error message
-                        Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
-                    } else {
-                        //New valid username
-                        //--Clear text fields print success message
-                        Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-                        users.put(username, password);
+                email = emailEditText.getText().toString();
+                signUp(email, password, username);
 
-                        // go back to previous fragment
-                        finish();
-
-                    }
-                    usernameEditText.setText("");
-                    passwordEditText.setText("");
-                } else {
-
-                    Toast.makeText(SignUpActivity.this, "Must input password", Toast.LENGTH_SHORT).show();
-                }
+//Old signup logic
+//                if(!password.equals("")) {
+//                    if (users.containsKey(username)) {
+//                        //Username exists within Firebase
+//                        //--Clear text fields and print error message
+//                        Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        //New valid username
+//                        //--Clear text fields print success message
+//                        Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
+//                        users.put(username, password);
+//                        // go back to previous fragment
+//                        finish();
+//                    }
+//                    usernameEditText.setText("");
+//                    passwordEditText.setText("");
+//                } else {
+//                    Toast.makeText(SignUpActivity.this, "Must input password", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
