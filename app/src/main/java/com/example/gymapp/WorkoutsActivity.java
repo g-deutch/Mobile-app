@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -16,12 +17,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.gymapp.databinding.ActivityMainBinding;
+import com.example.gymapp.sampledata.WorkoutViewModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WorkoutsActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private WorkoutViewModel viewModel;
     private static final String TAG = "Workouts";
     private static Button viewWorkoutsButton;
     private static Button newWorkoutButton;
@@ -44,6 +50,15 @@ public class WorkoutsActivity extends AppCompatActivity {
         newWorkoutButton = findViewById((R.id.new_workout_button));
         supriseButton = findViewById(R.id.surprise_button);
 
+
+        viewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+
+        // Example: Add a workout
+        Map<String, Object> workout = new HashMap<>();
+        workout.put("name", "Push-up");
+        workout.put("type", "Strength");
+        workout.put("duration", "10 minutes");
+        viewModel.addWorkout(workout);
 
 
         viewWorkoutsButton.setOnClickListener(new View.OnClickListener() {
