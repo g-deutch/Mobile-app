@@ -24,15 +24,17 @@ import java.util.Map;
 
 //
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import androidx.annotation.NonNull;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.DatabaseReference;
-
-
+//import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -48,23 +50,16 @@ public class SignUpActivity extends AppCompatActivity {
     private String username;
     private String email;
     private String password;
-    private static final Map<String, String> users = new HashMap<>();
+    private static Map<String, Object> user = new HashMap<>();
 
     private FirebaseAuth mAuth;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public class User {
-        private final String username;
-        private final String email;
-        private final String password;
 
-        public User(String username, String email, String password) {
-            this.username = username;
-            this.email = email;
-            this.password = password;
-        }
-    }
 
-    private void signUp(String email, String password, String user) {
+
+    private void signUp(String email, String password, String username) {
+       /*
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -85,6 +80,27 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        */
+        user.put("email", email);
+        user.put("password", password);
+        user.put("username", username);
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Toast.makeText( getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
     }
 
     @Override
@@ -102,6 +118,7 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password_input);
         signUpButton = findViewById(R.id.create_account_button);
         backButton = findViewById(R.id.back_button5);
+
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override

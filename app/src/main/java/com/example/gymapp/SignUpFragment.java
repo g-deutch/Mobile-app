@@ -49,6 +49,7 @@ public class SignUpFragment extends Fragment {
         EditText passwordEditText = view.findViewById(R.id.password_input);  // Updated ID
         Button signUpButton = view.findViewById(R.id.create_account_button);
         Button backButton = view.findViewById(R.id.back_button5);
+        /*
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +74,8 @@ public class SignUpFragment extends Fragment {
                 }
             }
         });
+
+         */
     }
 
 /*

@@ -3,6 +3,8 @@ package com.example.gymapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,12 +20,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.gymapp.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     private static final String TAG = "MainActivity";
-    private final Map<String, String> users = new HashMap<>();
+    //private final Map<String, String> users = new HashMap<>();
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button signInButton;
     private Button signUpButton;
+    ArrayList<Map<String, Object>> users = new ArrayList<>();
+    FirebaseFirestore db  = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.password_entry);
         signInButton = findViewById(R.id.sign_in_button);
         signUpButton = findViewById(R.id.sign_up_button);
+        refreshUserList();
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +73,11 @@ public class MainActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 //line below allows sign in with no user or password
+                if(signIn(username, password)){
+                    Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
+                    startActivity(i);
+                }
 
-                Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
-                startActivity(i);
                 //logic below requires valid user and password
                 /*
                if (users.containsKey(username) && users.get(username).equals(password)) {
@@ -94,6 +105,35 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
 
+    }
+    public void refreshUserList(){
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete( Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                users.add(document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    public boolean signIn(String userName, String Password){
+
+        boolean foundPerson = false;
+        for(Map<String, Object> user: users){
+            if ((user.get("username").equals(userName)) && user.get("password").equals(Password) ){
+                foundPerson = true;
+                break;
+            }
+            
+        }
+        return foundPerson;
     }
 
     @Override
@@ -145,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() called");
+        refreshUserList();
     }
     @Override
     public void onStop() {
