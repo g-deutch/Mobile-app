@@ -26,6 +26,8 @@ public class SettingsActivity extends AppCompatActivity {
     private static Button backButton;
     private static Button deleteWorkoutButton;
 
+    private static String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_settings);
-
+        username = getIntent().getExtras().getString("Username");
         //setSupportActionBar(binding.toolbar);
 
         backButton = findViewById(R.id.back_button4);

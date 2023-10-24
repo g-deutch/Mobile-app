@@ -34,6 +34,7 @@ public class WorkoutsActivity extends AppCompatActivity {
     private static Button supriseButton;
     private static Button backButton;
     private static Button settingsButton;
+    private static String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class WorkoutsActivity extends AppCompatActivity {
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_workouts);
-
+        username = getIntent().getExtras().getString("Username");
         //setSupportActionBar(binding.toolbar);
 
         backButton = findViewById(R.id.back_button);
@@ -49,6 +50,8 @@ public class WorkoutsActivity extends AppCompatActivity {
         viewWorkoutsButton = findViewById(R.id.view_workouts_button);
         newWorkoutButton = findViewById((R.id.new_workout_button));
         supriseButton = findViewById(R.id.surprise_button);
+
+
 
 
         viewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
@@ -65,6 +68,7 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MyWorkoutsActivity.class);
+                i.putExtra("Username", username);
                 startActivity(i);
             }
         });
@@ -72,6 +76,7 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+                i.putExtra("Username", username);
                 startActivity(i);
             }
         });

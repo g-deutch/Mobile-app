@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 //line below allows sign in with no user or password
                 if(signIn(username, password)){
                     Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
+                    i.putExtra("Username", username);
                     startActivity(i);
                 }
 

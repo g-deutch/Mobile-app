@@ -24,6 +24,8 @@ public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "Search";
     private static Button backButton;
 
+    private static String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class SearchActivity extends AppCompatActivity {
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_search);
-
+        username = getIntent().getExtras().getString("Username");
         //setSupportActionBar(binding.toolbar);
 
         backButton = findViewById(R.id.back_button3);
