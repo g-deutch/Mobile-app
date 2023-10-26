@@ -50,6 +50,11 @@
             android:label="@string/title_activity_Main_Page"
             android:theme="@style/Theme.GymApp" />
         <activity
+            android:name=".PremadeActivity"
+            android:exported="false"
+            android:label ="@string/premade"
+            android:theme="@style/Theme.GymApp" />
+        <activity
             android:name=".SearchActivity"
             android:exported="false"
             android:label="@string/search"
