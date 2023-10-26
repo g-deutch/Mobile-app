@@ -59,7 +59,7 @@ public class MainPageActivity extends AppCompatActivity {
         findGymButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                Intent i = new Intent(getApplicationContext(), MapsActivity.class);
                 i.putExtra("Username", username);
                 startActivity(i);
             }
