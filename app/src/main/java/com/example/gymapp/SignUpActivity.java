@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.gymapp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +36,8 @@ import androidx.annotation.NonNull;
 //import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -51,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
     private String email;
     private String password;
     private static Map<String, Object> user = new HashMap<>();
-
+    ArrayList<Map<String, Object>> userList = new ArrayList<>();
     private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -82,23 +85,56 @@ public class SignUpActivity extends AppCompatActivity {
                 });
 
         */
-        user.put("email", email);
-        user.put("password", password);
-        user.put("username", username);
+
+        // if(db.collection("users") .equals(username))
+
+        Boolean found = false;
+        for(Map<String, Object> u: userList){
+            if (!found && (username.equals(u.get("username")))){
+                Toast.makeText( getApplicationContext(), "username already exists!", Toast.LENGTH_SHORT).show();
+                found = true;
+                break;
+            }
+
+        }
+        if(!found) {
+            user.put("email", email);
+            user.put("password", password);
+            user.put("username", username);
+
+            db.collection("users")
+                    .add(user)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            finish();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
+        }
+    }
+
+    public void refreshUserList(){
         db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Toast.makeText( getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                    public void onComplete( Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                userList.add(document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
                     }
                 });
     }
@@ -119,6 +155,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton = findViewById(R.id.create_account_button);
         backButton = findViewById(R.id.back_button5);
 
+        refreshUserList();
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
