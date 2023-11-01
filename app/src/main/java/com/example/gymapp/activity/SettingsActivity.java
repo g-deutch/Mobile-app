@@ -42,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String TAG = "Settings";
     private static Button backButton;
     private static Button deleteWorkoutButton;
+    private static String document;
     ArrayList<Map<String, Object>> userList = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -80,18 +81,22 @@ public class SettingsActivity extends AppCompatActivity {
         db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete( Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String usernameToRemove = getIntent().getExtras().getString("Username");
-                    for (int i = 0; i < userList.size(); i++) {
-                        Map<String, Object> user = userList.get(i);
-                        String curr = (String) user.get("username");
-                        if (curr.equals(usernameToRemove)) {
-                            userList.remove(i);
-                            db.collection("users").document(document.getId()).delete();
-                            i--;
-                            Toast.makeText(getApplicationContext(), "Delete success: " + document.getId(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                for (QueryDocumentSnapshot document1 : task.getResult()) {
+                    document = getIntent().getExtras().getString("Document");
+                    db.collection("users").document(document).delete();
+                    Toast.makeText(getApplicationContext(), "Delete success: " + document, Toast.LENGTH_SHORT).show();
+
+                    // String usernameToRemove = getIntent().getExtras().getString("Username");
+//                    for (int i = 0; i < userList.size(); i++) {
+//                        Map<String, Object> user = userList.get(i);
+//                        String curr = (String) user.get("username");
+//                        if (curr.equals(usernameToRemove)) {
+//                            userList.remove(i);
+//                            db.collection("users").document(document.getId()).delete();
+//                            i--;
+//                            Toast.makeText(getApplicationContext(), "Delete success: " + document.getId(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
                 }
             }
         });

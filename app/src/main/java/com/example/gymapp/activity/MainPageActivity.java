@@ -27,7 +27,7 @@ public class MainPageActivity extends AppCompatActivity {
     private static Button findGymButton;
     private static Button selectWorkoutButton;
     private static Button settingsButton;
-    private static String username;
+    private static String document;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainPageActivity extends AppCompatActivity {
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_second);
         Bundle extras = getIntent().getExtras();
-        username = extras.getString("Username");
+        document = extras.getString("Document");
 
         //setSupportActionBar(binding.toolbar);
 
@@ -55,7 +55,7 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-                i.putExtra("Username", username);
+                i.putExtra("Document", document);
                 startActivity(i);
             }
         });
@@ -63,7 +63,7 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), WorkoutsActivity.class);
-                i.putExtra("Username", username);
+                i.putExtra("Document", document);
                 startActivity(i);
             }
         });
@@ -71,7 +71,7 @@ public class MainPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-                i.putExtra("Username", username);
+                i.putExtra("Document", document);
                 startActivity(i);
             }
         });

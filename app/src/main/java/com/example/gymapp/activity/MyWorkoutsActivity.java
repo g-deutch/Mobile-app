@@ -29,7 +29,7 @@ public class MyWorkoutsActivity extends AppCompatActivity {
     private static Button searchButton;
     private static Button backButton;
 
-    private static String username;
+    private static String document;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MyWorkoutsActivity extends AppCompatActivity {
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_my_workouts);
-        username = getIntent().getExtras().getString("Username");
+        document = getIntent().getExtras().getString("Document");
         //setSupportActionBar(binding.toolbar);
 
         favoritesButton = findViewById(R.id.favorites_button);

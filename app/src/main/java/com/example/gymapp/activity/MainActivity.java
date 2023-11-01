@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signUpButton;
     ArrayList<Map<String, Object>> users = new ArrayList<>();
     FirebaseFirestore db  = FirebaseFirestore.getInstance();
+    Map<String,Object> user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 //line below allows sign in with no user or password
                 if(signIn(username, password)){
                     Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
-                    i.putExtra("Username", username);
+                    i.putExtra("Document", (String)user.get("document"));
                     startActivity(i);
                 }
 
@@ -113,7 +114,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                users.add(document.getData());
+                                Map<String,Object> user1 = document.getData();
+                                user1.put("document", document.getId());
+                                users.add(user1);
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -124,8 +127,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean signIn(String userName, String Password){
 
         boolean foundPerson = false;
-        for(Map<String, Object> user: users){
-            if ((user.get("username").equals(userName)) && user.get("password").equals(Password) ){
+        for(Map<String, Object> user1: users){
+            if ((user1.get("username").equals(userName)) && user1.get("password").equals(Password) ){
+                user=user1;
                 foundPerson = true;
                 break;
             }
