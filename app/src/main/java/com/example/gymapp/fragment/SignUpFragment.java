@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.fragment;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.FragmentMyWorkoutsBinding;
 import com.example.gymapp.databinding.FragmentSecondBinding;
 import com.example.gymapp.databinding.FragmentSettingsBinding;

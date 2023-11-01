@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.gymapp.FirstFragment"
+        android:name="com.example.gymapp.fragment.FirstFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_first">
 
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.gymapp.SecondFragment"
+        android:name="com.example.gymapp.fragment.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/SearchFragment"
-        android:name="com.example.gymapp.SearchFragment"
+        android:name="com.example.gymapp.fragment.SearchFragment"
         android:label="@string/search_fragment_label"
         tools:layout="@layout/fragment_search">
 
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/WorkoutsFragment"
-        android:name="com.example.gymapp.WorkoutsFragment"
+        android:name="com.example.gymapp.fragment.WorkoutsFragment"
         android:label="@string/workouts_fragment_label"
         tools:layout="@layout/fragment_workouts">
 
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/MyWorkoutsFragment"
-        android:name="com.example.gymapp.MyWorkoutsFragment"
+        android:name="com.example.gymapp.fragment.MyWorkoutsFragment"
         android:label="@string/my_workouts_fragment_label"
         tools:layout="@layout/fragment_my_workouts">
 
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/SettingsFragment"
-        android:name="com.example.gymapp.SettingsFragment"
+        android:name="com.example.gymapp.fragment.SettingsFragment"
         android:label="@string/settings_fragment_label"
         tools:layout="@layout/fragment_settings">
 
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/SignUpFragment"
-        android:name="com.example.gymapp.SignUpFragment"
+        android:name="com.example.gymapp.fragment.SignUpFragment"
         android:label="@string/sign_up_fragment_label"
         tools:layout="@layout/fragment_sign_up">
 

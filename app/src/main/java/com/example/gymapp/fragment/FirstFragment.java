@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.FragmentFirstBinding;
 
 import android.widget.Button;

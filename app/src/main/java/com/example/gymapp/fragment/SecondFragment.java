@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

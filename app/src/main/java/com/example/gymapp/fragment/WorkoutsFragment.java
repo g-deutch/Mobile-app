@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.fragment;
 
 import android.os.Bundle;
 
@@ -10,19 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gymapp.databinding.FragmentMyWorkoutsBinding;
-import com.example.gymapp.databinding.FragmentSearchBinding;
 import com.example.gymapp.databinding.FragmentSecondBinding;
 import com.example.gymapp.databinding.FragmentWorkoutsBinding;
 
 
-public class SearchFragment extends Fragment {
+public class WorkoutsFragment extends Fragment {
 
 
 
-    private FragmentSearchBinding binding;
+    private FragmentWorkoutsBinding binding;
 
-    public SearchFragment() {
+    public WorkoutsFragment() {
         // Required empty public constructor
     }
 
@@ -31,11 +29,12 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        binding = FragmentWorkoutsBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
 
     }
 }
