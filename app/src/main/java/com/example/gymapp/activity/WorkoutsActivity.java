@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 import com.example.gymapp.sampledata.WorkoutViewModel;
 

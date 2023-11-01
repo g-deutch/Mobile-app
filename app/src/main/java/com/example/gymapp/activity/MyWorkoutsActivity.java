@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -17,21 +15,20 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class MainPageActivity extends AppCompatActivity {
+public class MyWorkoutsActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
     private static final String TAG = "MainPage";
-    private static Button logOutButton;
-    private static Button findGymButton;
-    private static Button selectWorkoutButton;
-    private static Button settingsButton;
+    private static Button favoritesButton;
+    private static Button preMadeButton;
+    private static Button searchButton;
+    private static Button backButton;
+
     private static String username;
 
     @Override
@@ -39,47 +36,21 @@ public class MainPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_second);
-        Bundle extras = getIntent().getExtras();
-        username = extras.getString("Username");
-
+        setContentView(R.layout.fragment_my_workouts);
+        username = getIntent().getExtras().getString("Username");
         //setSupportActionBar(binding.toolbar);
 
-        logOutButton = findViewById(R.id.log_out_button);
-        findGymButton = findViewById(R.id.find_gym_button);
-        selectWorkoutButton = findViewById(R.id.select_workout_button);
-        settingsButton = findViewById(R.id.settings_button);
-
-        logOutButton.setOnClickListener(new View.OnClickListener() {
+        favoritesButton = findViewById(R.id.favorites_button);
+        preMadeButton = findViewById(R.id.premade_button);
+        searchButton = findViewById(R.id.search_button);
+        backButton = findViewById(R.id.back_button2);
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        findGymButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MapsActivity.class);
-                i.putExtra("Username", username);
-                startActivity(i);
-            }
-        });
-        selectWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), WorkoutsActivity.class);
-                i.putExtra("Username", username);
-                startActivity(i);
-            }
-        });
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-                i.putExtra("Username", username);
-                startActivity(i);
-            }
-        });
+
 
     }
 

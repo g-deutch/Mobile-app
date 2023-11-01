@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
@@ -55,38 +56,14 @@ public class SignUpActivity extends AppCompatActivity {
     private String password;
     private static Map<String, Object> user = new HashMap<>();
     ArrayList<Map<String, Object>> userList = new ArrayList<>();
-    private FirebaseAuth mAuth;
+    //private FirebaseAuth mAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
 
 
     private void signUp(String email, String password, String username) {
-       /*
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign-up successful
-                            Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-                            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-                            String userId = firebaseUser.getUid();
-                            User newUser = new User(user, email, password);
 
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference usersRef = database.getReference("users");
-                            usersRef.child(userId).setValue(newUser);
-                            finish();
-                        } else {
-                            // Sign-up failed
-                            Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-        */
-
-        // if(db.collection("users") .equals(username))
 
         Boolean found = false;
         for(Map<String, Object> u: userList){
@@ -101,6 +78,8 @@ public class SignUpActivity extends AppCompatActivity {
             user.put("email", email);
             user.put("password", password);
             user.put("username", username);
+//            String t = String.valueOf(db.collection("users").document());
+//            db.collection("users").document(t).delete();
 
             db.collection("users")
                     .add(user)
@@ -146,8 +125,6 @@ public class SignUpActivity extends AppCompatActivity {
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_sign_up);
 
-        //This line makes the app crash when going to sign up page
-        //mAuth = FirebaseAuth.getInstance();
 
         emailEditText = findViewById(R.id.email_input);
         usernameEditText = findViewById(R.id.username_input);
@@ -165,25 +142,6 @@ public class SignUpActivity extends AppCompatActivity {
                 email = emailEditText.getText().toString();
                 signUp(email, password, username);
 
-//Old signup logic
-//                if(!password.equals("")) {
-//                    if (users.containsKey(username)) {
-//                        //Username exists within Firebase
-//                        //--Clear text fields and print error message
-//                        Toast.makeText(SignUpActivity.this , "Username already taken", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        //New valid username
-//                        //--Clear text fields print success message
-//                        Toast.makeText(SignUpActivity.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-//                        users.put(username, password);
-//                        // go back to previous fragment
-//                        finish();
-//                    }
-//                    usernameEditText.setText("");
-//                    passwordEditText.setText("");
-//                } else {
-//                    Toast.makeText(SignUpActivity.this, "Must input password", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
 

@@ -1,9 +1,11 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.gymapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

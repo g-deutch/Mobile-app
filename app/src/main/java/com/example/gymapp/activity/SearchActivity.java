@@ -1,4 +1,4 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,20 +11,19 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "Settings";
+    private static final String TAG = "Search";
     private static Button backButton;
-    private static Button deleteWorkoutButton;
 
     private static String username;
 
@@ -34,21 +33,17 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_settings);
+        setContentView(R.layout.fragment_search);
         username = getIntent().getExtras().getString("Username");
         //setSupportActionBar(binding.toolbar);
 
-        backButton = findViewById(R.id.back_button4);
-        deleteWorkoutButton = findViewById(R.id.delete_workout_button);
+        backButton = findViewById(R.id.back_button3);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-
-
     }
 
     @Override

@@ -1,6 +1,5 @@
-package com.example.gymapp;
+package com.example.gymapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,17 +13,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 
-public class SearchActivity extends AppCompatActivity {
+public class PremadeActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "Search";
+    private static final String TAG = "Premade";
     private static Button backButton;
-
     private static String username;
+    private static Button legButton;
+    private static Button pushButton;
+    private static Button pullButton;
+
 
 
     @Override
@@ -32,17 +35,27 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_search);
+        setContentView(R.layout.fragment_premade);
         username = getIntent().getExtras().getString("Username");
+
         //setSupportActionBar(binding.toolbar);
 
-        backButton = findViewById(R.id.back_button3);
+        backButton = findViewById(R.id.back_button4);
+        //deleteWorkoutButton = findViewById(R.id.delete_workout_button);
+
+        legButton = findViewById(R.id.Legs);
+        pushButton = findViewById(R.id.Push);
+        pullButton = findViewById(R.id.Pull);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+
+
     }
 
     @Override

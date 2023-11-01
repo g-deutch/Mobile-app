@@ -21,10 +21,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/delete_workout_button"
+            android:id="@+id/delete_account_button"
             android:layout_width="230dp"
             android:layout_height="48dp"
-            android:text="@string/deleteWorkout"
+            android:text="@string/deleteAccount"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/settings_text" />
@@ -36,5 +36,6 @@
             android:text="@string/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
