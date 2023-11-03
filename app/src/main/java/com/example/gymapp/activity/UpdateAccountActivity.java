@@ -115,7 +115,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                updateUser(newUsername.getText(), newPassword.getText());
+                updateUser(newUsername.getText().toString(), newPassword.getText().toString());
             }
         });
 
