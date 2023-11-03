@@ -58,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        usernameEditText = findViewById(R.id.username_entry);
-        passwordEditText = findViewById(R.id.password_entry);
-        signInButton = findViewById(R.id.sign_in_button);
-        signUpButton = findViewById(R.id.sign_up_button);
+        usernameEditText = findViewById(R.id.new_username_entry);
+        passwordEditText = findViewById(R.id.new_password_entry);
+        signInButton = findViewById(R.id.update_button);
+        signUpButton = findViewById(R.id.back_button7);
         refreshUserList();
 
         signInButton.setOnClickListener(new View.OnClickListener() {

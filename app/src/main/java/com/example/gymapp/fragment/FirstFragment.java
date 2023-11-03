@@ -44,40 +44,11 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        usernameEditText = view.findViewById(R.id.username_entry);
-        passwordEditText = view.findViewById(R.id.password_entry);
-        Button signInButton = view.findViewById(R.id.sign_in_button);
+        usernameEditText = view.findViewById(R.id.new_username_entry);
+        passwordEditText = view.findViewById(R.id.new_password_entry);
+        Button signInButton = view.findViewById(R.id.update_button);
 
-        binding.signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
 
-                //line below allows sign in with no user or password
-                NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment);
-
-                //logic below requires valid user and password
-                /*
-               if (users.containsKey(username) && users.get(username).equals(password)) {
-                    Toast.makeText(getActivity(), "Sign in successful!", Toast.LENGTH_SHORT).show();
-                    NavHostFragment.findNavController(FirstFragment.this)
-                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                } else {
-                    Toast.makeText(getActivity(), "Invalid username or password.", Toast.LENGTH_SHORT).show();
-                }
-                */
-            }
-        });
-        binding.signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SignUpFragment);
-
-            }
-        });
     }
 
     @Override

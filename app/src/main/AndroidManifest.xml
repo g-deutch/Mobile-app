@@ -72,7 +72,12 @@
         <activity
             android:name=".activity.MyWorkoutsActivity"
             android:exported="false"
-            android:label="@string/settings"
+            android:label="@string/myWorkouts"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.UpdateAccountActivity"
+            android:exported="false"
+            android:label="@string/updateAccount"
             android:theme="@style/Theme.GymApp" />
         <activity
             android:name=".activity.MainActivity"

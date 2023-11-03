@@ -6,11 +6,15 @@
     <string name="second_fragment_label">Main Page</string>
     <string name="signIn">Sign In</string>
     <string name="signUp">Sign Up</string>
+    <string name="update">Update</string>
+
     <string name="logout">Logout</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="usernameHint">Enter Username</string>
     <string name="passwordHint">Enter Password</string>
+    <string name="passwordChange">Enter New Password</string>
+    <string name="usernameChange">Enter New Username</string>
     <string name="findGym">Find Nearby Gyms</string>
     <string name="selectWorkout">Select Workout</string>
     <string name="settings">Settings</string>
@@ -25,6 +29,7 @@
     <string name="premade">Pre-Made</string>
     <string name="searchEmoji">🔍</string>
     <string name="deleteAccount">Delete Account</string>
+    <string name="updateAccount">Update Account</string>
     <string name="create">Create</string>
     <string name="login">Login</string>
     <string name="search_fragment_label">Search</string>

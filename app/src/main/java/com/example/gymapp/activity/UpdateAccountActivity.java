@@ -7,11 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -20,38 +21,42 @@ import com.example.gymapp.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Map;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import android.widget.Toast;
 
 
-
-
-public class SettingsActivity extends AppCompatActivity {
+public class UpdateAccountActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "Settings";
+    private static final String TAG = "UpdateAccount";
     private static Button backButton;
-    private static Button deleteWorkoutButton;
-    private static Button updateWorkoutButton;
+    private static Button updateAccount;
+    private static EditText newUsername;
+    private static EditText newPassword;
     private static String document;
     ArrayList<Map<String, Object>> userList = new ArrayList<>();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    private void updateUser() {
-        Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);
-        i.putExtra("Document", (String)getIntent().getExtras().getString("Document"));
-        startActivity(i);
+    private void updateUser(String username, String password) {
+        boolean changed = false;
+        if(!username.equals("")){
+            changed = true;
+
+        }
+        if(!password.equals("")){
+            changed = true;
+
+        }
+        if(changed) {
+            Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);
+            startActivity(i);
+        }
     }
 
     private void delete() {
@@ -90,22 +95,15 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "Setting(Bundle) called");
-        setContentView(R.layout.fragment_settings);
+        setContentView(R.layout.fragment_update_account);
 
-        backButton = findViewById(R.id.back_button4);
-        deleteWorkoutButton = findViewById(R.id.delete_account_button);
-        updateWorkoutButton = findViewById(R.id.update_account_button);
+        backButton = findViewById(R.id.back_button7);
+        updateAccount = findViewById(R.id.update_account_button);
+        newUsername = findViewById((R.id.new_username_entry));
+        newPassword = findViewById(R.id.new_password_entry);
 
         refreshUserList();
-        deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete();
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
-                startActivity(i);
-            }
-        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,14 +111,15 @@ public class SettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        updateWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        updateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-
+                updateUser(newUsername.getText(), newPassword.getText());
             }
-        });;
+        });
+
+
 
 
     }

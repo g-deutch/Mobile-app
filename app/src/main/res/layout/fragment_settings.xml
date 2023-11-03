@@ -37,5 +37,15 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <Button
+            android:id="@+id/update_account_button"
+            android:layout_width="230dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="69dp"
+            android:text="Update Account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/delete_account_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
