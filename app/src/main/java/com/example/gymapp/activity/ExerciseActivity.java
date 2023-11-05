@@ -17,75 +17,60 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 
-public class MainPageActivity extends AppCompatActivity {
+public class ExerciseActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "MainPage";
-    private static Button logOutButton;
-    private static Button findGymButton;
-    private static Button exercises;
-    private static Button selectWorkoutButton;
-    private static Button settingsButton;
+    private static final String TAG = "Exercises";
+    private static Button backButton;
+    private static Button allExercises;
+    private static Button myExercises;
     private static String document;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_second);
-        Bundle extras = getIntent().getExtras();
-        document = extras.getString("Document");
+        setContentView(R.layout.fragment_exercise);
+        document = getIntent().getExtras().getString("Document");
 
         //setSupportActionBar(binding.toolbar);
 
-        logOutButton = findViewById(R.id.log_out_button);
-        findGymButton = findViewById(R.id.find_gym_button);
-        selectWorkoutButton = findViewById(R.id.select_workout_button);
-        settingsButton = findViewById(R.id.settings_button);
-        exercises = findViewById(R.id.exercise_button);
+        backButton = findViewById(R.id.back_button8);
+        allExercises = findViewById(R.id.all_exercises_button);
+        myExercises = findViewById(R.id.my_exercises_button);
 
-        exercises.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ExerciseActivity.class);
-                i.putExtra("Document", document);
-                startActivity(i);
-            }
-        });
 
-        logOutButton.setOnClickListener(new View.OnClickListener() {
+
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        findGymButton.setOnClickListener(new View.OnClickListener() {
+        allExercises.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MapsActivity.class);
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), AllExercisesActivity.class);
                 i.putExtra("Document", document);
                 startActivity(i);
             }
         });
-        selectWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        myExercises.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), WorkoutsActivity.class);
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), MyExercisesActivity.class);
                 i.putExtra("Document", document);
                 startActivity(i);
             }
         });
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
-                i.putExtra("Document", document);
-                startActivity(i);
-            }
-        });
+
+
 
     }
 

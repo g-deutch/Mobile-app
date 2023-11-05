@@ -88,6 +88,8 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onSuccess(DocumentReference documentReference) {
                             Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            addWorkoutsToUser(documentReference.getId());
+                            db.collection("users").document(documentReference.getId()).collection("myWorkouts");
                             finish();
                         }
                     })
@@ -98,6 +100,26 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     });
         }
+    }
+    public void addWorkoutsToUser(String doc){
+        db.collection("exercises")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete( Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> workout = document.getData();
+                                workout.put("active", false);
+                                workout.put("favorite", false);
+                               db.collection("users").document(doc).collection("myExercises").add(workout);
+
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
     }
 
     public void refreshUserList(){
