@@ -95,6 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back_button4);
         deleteWorkoutButton = findViewById(R.id.delete_account_button);
         updateWorkoutButton = findViewById(R.id.update_account_button);
+        document = getIntent().getExtras().getString("Document");
 
         refreshUserList();
         deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +118,9 @@ public class SettingsActivity extends AppCompatActivity {
         updateWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);
+                i.putExtra("Document", document);
+                startActivity(i);
 
             }
         });;

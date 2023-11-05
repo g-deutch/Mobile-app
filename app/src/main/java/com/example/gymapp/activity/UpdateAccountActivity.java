@@ -25,6 +25,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -47,31 +48,25 @@ public class UpdateAccountActivity extends AppCompatActivity {
         boolean changed = false;
         if(!username.equals("")){
             changed = true;
+            Map<String, Object> newUser = new HashMap<>();
+            newUser.put("username", username);
+            db.collection("users").document(document).update(newUser);
 
         }
         if(!password.equals("")){
             changed = true;
+            Map<String, Object> newUser = new HashMap<>();
+            newUser.put("password", password);
+            db.collection("users").document(document).update(newUser);
 
         }
         if(changed) {
-            Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }
     }
 
-    private void delete() {
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete( Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document1 : task.getResult()) {
-                    document = getIntent().getExtras().getString("Document");
-                    db.collection("users").document(document).delete();
-                    Toast.makeText(getApplicationContext(), "Delete success: " + document, Toast.LENGTH_SHORT).show();
 
-                }
-            }
-        });
-    }
 
     public void refreshUserList(){
         db.collection("users")
@@ -98,9 +93,10 @@ public class UpdateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_update_account);
 
         backButton = findViewById(R.id.back_button7);
-        updateAccount = findViewById(R.id.update_account_button);
+        updateAccount = findViewById(R.id.update_button);
         newUsername = findViewById((R.id.new_username_entry));
         newPassword = findViewById(R.id.new_password_entry);
+        document = getIntent().getExtras().getString("Document");
 
         refreshUserList();
 
