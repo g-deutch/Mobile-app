@@ -47,11 +47,11 @@ public class UpdateAccountActivity extends AppCompatActivity {
         boolean changed = false;
         if(!username.equals("")){
             changed = true;
-            //logic for changing username needed
+
         }
         if(!password.equals("")){
             changed = true;
-            //logic for changing password needed
+
         }
         if(changed) {
             Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);

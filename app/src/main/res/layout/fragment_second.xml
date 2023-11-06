@@ -8,6 +8,16 @@
     tools:context=".fragment.SecondFragment">
 
     <Button
+        android:id="@+id/exercise_button"
+        android:layout_width="230dp"
+        android:layout_height="48dp"
+        android:text="Exercises"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_workout_button" />
+
+    <Button
         android:id="@+id/settings_button"
         android:layout_width="124dp"
         android:layout_height="51dp"

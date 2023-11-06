@@ -54,6 +54,9 @@ android {
 dependencies {
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
     // When using the BoM, you don't specify versions in Firebase library dependencies
 

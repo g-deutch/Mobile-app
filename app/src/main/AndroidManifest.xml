@@ -40,6 +40,26 @@
             android:label="@string/title_activity_maps"
             android:theme="@style/Theme.GymApp" />
         <activity
+            android:name=".activity.EditExerciseActivity"
+            android:exported="false"
+            android:label="Edit Exercise"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.ExerciseActivity"
+            android:exported="false"
+            android:label="Exercises"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.AllExercisesActivity"
+            android:exported="false"
+            android:label="All Exercises"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.MyExercisesActivity"
+            android:exported="false"
+            android:label="My Exercises"
+            android:theme="@style/Theme.GymApp" />
+        <activity
             android:name=".activity.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
