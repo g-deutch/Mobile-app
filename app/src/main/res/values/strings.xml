@@ -39,6 +39,7 @@
     <string name="title_activity_Main_Page">Main Page</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_csv_parser" />
+    <string name="title_activity_create_workout">CreateWorkout</string>
 
 
 </resources>

@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- Include only if your app benefits from precise location access. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -18,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymApp"
         tools:targetApi="31">
-
+        <activity
+            android:name=".CreateWorkout"
+            android:exported="false"
+            android:label="@string/title_activity_create_workout"
+            android:theme="@style/Theme.GymApp" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -30,11 +32,10 @@
              project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
              "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
         -->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="${MAPS_API_KEY}" />-->
-<!--        */-->
-
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="${MAPS_API_KEY}" /> -->
+        <!-- */ -->
         <activity
             android:name=".MapsActivity"
             android:exported="false"
@@ -45,13 +46,12 @@
             android:exported="true"
             android:label="@string/title_csv_parser"
             android:theme="@style/Theme.GymApp">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false"
@@ -65,7 +65,7 @@
         <activity
             android:name=".PremadeActivity"
             android:exported="false"
-            android:label ="@string/premade"
+            android:label="@string/premade"
             android:theme="@style/Theme.GymApp" />
         <activity
             android:name=".SearchActivity"
@@ -92,11 +92,13 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.GymApp">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
