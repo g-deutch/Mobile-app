@@ -60,6 +60,16 @@
             android:label="My Exercises"
             android:theme="@style/Theme.GymApp" />
         <activity
+            android:name=".activity.WorkoutCreatorActivity"
+            android:exported="false"
+            android:label="Workout Creator"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.ExerciseSelectionActivity"
+            android:exported="false"
+            android:label="Exercise Selection"
+            android:theme="@style/Theme.GymApp" />
+        <activity
             android:name=".activity.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"

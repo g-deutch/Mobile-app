@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Welcome Text and Instructions -->
+        <TextView
+            android:id="@+id/textViewWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_the_workout_creator"
+            android:textSize="24sp"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Spinner for Selecting Workout Days -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/select_your_workout_days_per_week"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerWorkoutDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/workout_days_array"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- Workout Split Selection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_your_workout_split"
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupSplits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonFullBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/full_body"
+                android:textSize="18sp"
+                android:layout_marginBottom="15dp"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonUpperLower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upper_lower"
+                android:textSize="18sp"
+                android:layout_marginBottom="15dp"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonPushPullLegs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_pull_legs"
+                android:textSize="18sp"
+                android:layout_marginBottom="30dp"/>
+        </RadioGroup>
+
+        <!-- Button to Proceed to Exercise Selection -->
+        <Button
+            android:id="@+id/buttonToExerciseSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/proceed_to_exercise_selection"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -46,6 +46,7 @@ public class WorkoutsActivity extends AppCompatActivity {
         //setSupportActionBar(binding.toolbar);
 
         backButton = findViewById(R.id.back_button);
+        newWorkoutButton = findViewById(R.id.new_workout_button);
         settingsButton = findViewById(R.id.settings_workout_button);
         viewWorkoutsButton = findViewById(R.id.view_workouts_button);
         newWorkoutButton = findViewById((R.id.new_workout_button));
@@ -68,6 +69,14 @@ public class WorkoutsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), MyWorkoutsActivity.class);
+                i.putExtra("Document", document);
+                startActivity(i);
+            }
+        });
+        newWorkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), WorkoutCreatorActivity.class);
                 i.putExtra("Document", document);
                 startActivity(i);
             }
