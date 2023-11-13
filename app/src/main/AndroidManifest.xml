@@ -89,6 +89,16 @@
             android:exported="false"
             android:label ="@string/push"
             android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.LegActivity"
+            android:exported="false"
+            android:label ="@string/leg"
+            android:theme="@style/Theme.GymApp" />
+        <activity
+            android:name=".activity.PullActivity"
+            android:exported="false"
+            android:label ="@string/pull"
+            android:theme="@style/Theme.GymApp" />
 
         <activity
             android:name=".activity.SearchActivity"

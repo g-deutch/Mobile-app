@@ -1,12 +1,13 @@
 package com.example.gymapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -16,38 +17,39 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class PremadeActivity extends AppCompatActivity {
+import java.util.Map;
+
+public class LegActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "Premade";
+    private static final String TAG = "leg";
     private static Button backButton;
-    private static String document;
-    private static Button legButton;
-    private static Button pushButton;
-    private static Button pullButton;
+    private static String documentId;
+    private TextView textViewName;
+    private TextView textViewDuration;
+    private TextView textViewType;
+    FirebaseFirestore db  = FirebaseFirestore.getInstance();
+    public class Workout {
+        private String name, type, duration;
+        public String getName() { return name; }
+        public void setName(String name) { this.name = name; }
+        public String getType() { return type; }
+        public void setType(String type) { this.type = type; }
+        public String getDuration() { return duration; }
+        public void setDuration(String duration) { this.duration = duration; }
 
-
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_premade);
-        document = getIntent().getExtras().getString("Document");
-
-        //setSupportActionBar(binding.toolbar);
-
-        backButton = findViewById(R.id.back_button4);
-        //deleteWorkoutButton = findViewById(R.id.delete_workout_button);
-
-        legButton = findViewById(R.id.Legs);
-        pushButton = findViewById(R.id.Push);
-        pullButton = findViewById(R.id.Pull);
-
+        setContentView(R.layout.fragment_leg);
+        backButton = findViewById(R.id.back_button5);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,31 +57,40 @@ public class PremadeActivity extends AppCompatActivity {
             }
         });
 
-        pushButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), PushActivity.class);
-                startActivity(i);
-            }
-        });
+        db = FirebaseFirestore.getInstance();
+        textViewName = findViewById(R.id.textViewName1);
+        textViewDuration = findViewById(R.id.textViewDuration1);
+        textViewType = findViewById(R.id.textViewType1);
 
-        legButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), LegActivity.class);
-                startActivity(i);
-            }
-        });
-        pullButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), PullActivity.class);
-                startActivity(i);
-            }
-        });
+        // document ID
+        documentId = "OD8b3vNhetprOmbTHlcj";
+        getWorkout(documentId);
+    }
 
+    private void getWorkout(String documentId) {
+        //String name = db.collection("workouts").document(documentId).collection("name");
 
+        db.collection("workouts").document(documentId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
 
+                    if (documentSnapshot.exists()) {
+                        Toast.makeText(this, "Workout  found", Toast.LENGTH_SHORT).show();
+                        Map<String, Object> data = documentSnapshot.getData();
+                        Workout w = new Workout();
+                        w.setName((String) data.get("name"));
+                        w.setType((String) data.get("type"));
+                        w.setDuration((String) data.get("duration"));
+                        displayWorkout(w);
+                    }
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(this, "Workout not found: OD8b3vNhetprOmbTHlcj", Toast.LENGTH_SHORT).show();
+                });
+    }
+    private void displayWorkout(Workout workout) {
+        textViewName.setText("Name: " + workout.getName());
+        textViewDuration.setText("Duration: " + workout.getDuration());
+        textViewType.setText("Type: " + workout.getType());
     }
 
     @Override
