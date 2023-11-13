@@ -85,6 +85,12 @@
             android:label ="@string/premade"
             android:theme="@style/Theme.GymApp" />
         <activity
+            android:name=".activity.PushActivity"
+            android:exported="false"
+            android:label ="@string/push"
+            android:theme="@style/Theme.GymApp" />
+
+        <activity
             android:name=".activity.SearchActivity"
             android:exported="false"
             android:label="@string/search"

@@ -19,12 +19,16 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -40,38 +44,34 @@ public class UpdateAccountActivity extends AppCompatActivity {
     private static EditText newPassword;
     private static String document;
     ArrayList<Map<String, Object>> userList = new ArrayList<>();
+    private static Map<String, Object> user = new HashMap<>();
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     private void updateUser(String username, String password) {
+        document = getIntent().getExtras().getString("Document");
+        DocumentReference curr = db.collection("users").document(document);
+
+
         boolean changed = false;
         if(!username.equals("")){
-            changed = true;
+            if(!password.equals("")){
 
-        }
-        if(!password.equals("")){
-            changed = true;
+                user.put("password", password);
+                user.put("username", username);
+                curr.update(user);
 
+                changed = true;
+            }
         }
         if(changed) {
-            Intent i = new Intent(getApplicationContext(), UpdateAccountActivity.class);
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            Toast.makeText(getApplicationContext(), "Update Successful", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void delete() {
-        db.collection("users").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete( Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot document1 : task.getResult()) {
-                    document = getIntent().getExtras().getString("Document");
-                    db.collection("users").document(document).delete();
-                    Toast.makeText(getApplicationContext(), "Delete success: " + document, Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });
-    }
 
     public void refreshUserList(){
         db.collection("users")
@@ -82,7 +82,10 @@ public class UpdateAccountActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
-                                userList.add(document.getData());
+                                Map<String,Object> user1 = document.getData();
+                                user1.put("document", document.getId());
+                                userList.add(user1);
+
 
                             }
                         } else {
@@ -98,7 +101,7 @@ public class UpdateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_update_account);
 
         backButton = findViewById(R.id.back_button7);
-        updateAccount = findViewById(R.id.update_account_button);
+        updateAccount = findViewById(R.id.update_button);
         newUsername = findViewById((R.id.new_username_entry));
         newPassword = findViewById(R.id.new_password_entry);
 
@@ -114,7 +117,6 @@ public class UpdateAccountActivity extends AppCompatActivity {
         updateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 updateUser(newUsername.getText().toString(), newPassword.getText().toString());
             }
         });

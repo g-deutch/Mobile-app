@@ -51,6 +51,15 @@ public class MyWorkoutsActivity extends AppCompatActivity {
             }
         });
 
+        preMadeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), PremadeActivity.class);
+                i.putExtra("Document", document);
+                startActivity(i);
+            }
+        });
+
 
     }
 

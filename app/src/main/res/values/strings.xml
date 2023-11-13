@@ -7,7 +7,7 @@
     <string name="signIn">Sign In</string>
     <string name="signUp">Sign Up</string>
     <string name="update">Update</string>
-
+    <string name="push">Push</string>
     <string name="logout">Logout</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>

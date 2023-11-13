@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -79,18 +80,13 @@ public class MainActivity extends AppCompatActivity {
 
                     i.putExtra("Document", (String)user.get("document"));
                     startActivity(i);
+                    Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                    usernameEditText.setText("");
+                    passwordEditText.setText("");
                 }
 
-                //logic below requires valid user and password
-                /*
-               if (users.containsKey(username) && users.get(username).equals(password)) {
-                    Toast.makeText(getActivity(), "Sign in successful!", Toast.LENGTH_SHORT).show();
-                    NavHostFragment.findNavController(FirstFragment.this)
-                            .navigate(R.id.action_FirstFragment_to_SecondFragment);
-                } else {
-                    Toast.makeText(getActivity(), "Invalid username or password.", Toast.LENGTH_SHORT).show();
-                }
-                */
             }
         });
         signUpButton.setOnClickListener(new View.OnClickListener() {
