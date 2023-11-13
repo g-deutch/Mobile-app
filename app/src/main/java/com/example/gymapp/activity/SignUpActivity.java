@@ -1,6 +1,7 @@
 package com.example.gymapp.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -83,23 +84,28 @@ public class SignUpActivity extends AppCompatActivity {
 
             db.collection("users")
                     .add(user)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
-                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            addWorkoutsToUser(documentReference.getId());
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                        storeUserDocumentId(documentReference.getId());
+
+                        addWorkoutsToUser(documentReference.getId());
+
                             db.collection("users").document(documentReference.getId()).collection("myWorkouts");
                             finish();
-                        }
                     })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                    .addOnFailureListener(e ->  {
                             Log.w(TAG, "Error adding document", e);
-                        }
                     });
+
         }
+    }
+    private void storeUserDocumentId(String documentId) {
+        SharedPreferences sharedPref = getSharedPreferences("YourAppPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("currentUserDocId", documentId);
+        editor.apply();
     }
     public void addWorkoutsToUser(String doc){
         db.collection("exercises")
