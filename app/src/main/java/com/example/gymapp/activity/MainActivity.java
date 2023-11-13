@@ -1,6 +1,8 @@
 package com.example.gymapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.gymapp.R;
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
                 //line below allows sign in with no user or password
                 if(signIn(username, password)){
                     Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
+                    storeUserDocumentId((String) user.get("document"));
+
                     i.putExtra("Document", (String)user.get("document"));
                     startActivity(i);
                 }
@@ -131,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
             if ((user1.get("username").equals(userName)) && user1.get("password").equals(Password) ){
                 user=user1;
                 foundPerson = true;
+
+                Log.d(TAG, "User signed in. Username: " + userName + ", Document ID: " + user.get("document"));
+
+
                 break;
             }
             
@@ -167,6 +175,13 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    private void storeUserDocumentId(String documentId) {
+        SharedPreferences sharedPref = getSharedPreferences("YourAppPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("currentUserDocId", documentId);
+        editor.apply();
+    }
+
 
     @Override
     public void onStart() {
