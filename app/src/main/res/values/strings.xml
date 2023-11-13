@@ -10,6 +10,7 @@
     <string name="push">Push</string>
     <string name="leg">Leg</string>
     <string name="pull">Pull</string>
+    <string name="SearchButton">Search</string>
     <string name="logout">Logout</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>

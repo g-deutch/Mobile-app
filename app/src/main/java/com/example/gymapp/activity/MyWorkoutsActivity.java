@@ -60,6 +60,15 @@ public class MyWorkoutsActivity extends AppCompatActivity {
             }
         });
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+                i.putExtra("Document", document);
+                startActivity(i);
+            }
+        });
+
 
     }
 
