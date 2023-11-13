@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="spinnerWorkoutDays" type="id" />
+    <item name="textViewWelcome" type="id" />
+    <item name="radioGroupSplits" type="id" />
+    <item name="radioButtonFullBody" type="id" />
+    <item name="radioButtonUpperLower" type="id" />
+    <item name="radioButtonPushPullLegs" type="id" />
+    <item name="buttonToExerciseSelection" type="id" />
+</resources>

@@ -1,11 +1,13 @@
 package com.example.gymapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -15,6 +17,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class MyExercisesActivity extends AppCompatActivity {
 
@@ -23,29 +33,81 @@ public class MyExercisesActivity extends AppCompatActivity {
 
     private static final String TAG = "Premade";
     private static Button backButton;
-    private static String document;
-    private static Button legButton;
-    private static Button pushButton;
-    private static Button pullButton;
+    private static String userDocument;
+    private static String exerciseDocument;
+    ArrayList<Map<String, Object>> exercises = new ArrayList<>();
+    FirebaseFirestore db  = FirebaseFirestore.getInstance();
+    Map<String,Object> exercise;
 
 
 
+    public void refreshExerciseList(){
+        db.collection("users").document(userDocument).collection("myExercises")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete( Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int i = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Map<String,Object> exercise1 = document.getData();
+                                exercise1.put("document", document.getId());
+                                exercises.add(exercise1);
+                                if((boolean) exercise1.get("active")){
+                                    createButton(exercise1, i );
+                                }
+
+                                i++;
+                            }
+                            //createButtons();
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+    }
+    public void createButton(Map<String, Object> exercise1, int i){
+        LinearLayout linear = (LinearLayout) findViewById(R.id.layout2);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        Button btn = new Button(this);
+        btn.setId(i);
+        int id_ = btn.getId();
+        btn.setText((String) exercise1.get("name"));
+        //btn.setBackgroundColor(Color.rgb(70, 80, 90));
+        linear.addView(btn, params);
+        Button btn1 = ((Button) findViewById(id_));
+
+
+        btn1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                exerciseDocument = (String) exercise1.get("document");
+                Intent i = new Intent(getApplicationContext(), EditExerciseActivity.class);
+                i.putExtra("userDocument", userDocument);
+                i.putExtra("workoutDocument", exerciseDocument);
+                startActivity(i);
+            }
+        });
+
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         //binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.fragment_premade);
-        document = getIntent().getExtras().getString("Document");
+        setContentView(R.layout.fragment_my_exercises);
+        userDocument = getIntent().getExtras().getString("Document");
 
         //setSupportActionBar(binding.toolbar);
 
-        backButton = findViewById(R.id.back_button4);
+        backButton = findViewById(R.id.back_button10);
         //deleteWorkoutButton = findViewById(R.id.delete_workout_button);
+        refreshExerciseList();
 
-        legButton = findViewById(R.id.Legs);
-        pushButton = findViewById(R.id.Push);
-        pullButton = findViewById(R.id.Pull);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

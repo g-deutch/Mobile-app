@@ -43,6 +43,13 @@
     <string name="title_activity_sign_up">Sign Up</string>
     <string name="title_activity_Main_Page">Main Page</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="welcome_to_the_workout_creator">Welcome to the Workout Creator</string>
+    <string name="select_your_workout_days_per_week">Select your workout days per week:</string>
+    <string name="choose_your_workout_split">Choose your workout split:</string>
+    <string name="full_body">Full Body</string>
+    <string name="upper_lower">Upper/Lower</string>
+    <string name="push_pull_legs">Push/Pull/Legs</string>
+    <string name="proceed_to_exercise_selection">Proceed to Exercise Selection</string>
 
 
 </resources>
