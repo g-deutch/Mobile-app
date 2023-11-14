@@ -49,7 +49,8 @@ public class SearchActivity extends AppCompatActivity {
 
     ArrayList<Map<String, Object>> exercises = new ArrayList<>();
     FirebaseFirestore db  = FirebaseFirestore.getInstance();
-    Map<String,Object> exercise;
+
+
 
     public void refreshExerciseList(final String muscle) {
         db.collection("users").document(document).collection("myExercises")
@@ -65,10 +66,11 @@ public class SearchActivity extends AppCompatActivity {
                                 if (exerciseData.containsKey("muscle") && String.valueOf(exerciseData.get("muscle")).toLowerCase().contains(muscle.toLowerCase())) {
                                     exerciseData.put("document", document.getId());
                                     exercises.add(exerciseData);
-                                    createButton(exercise, i);
+                                    createButton(exerciseData, i);
                                     i++;
                                 }
                             }
+
                             if (exercises.isEmpty()) {
                                 Toast.makeText(getApplicationContext(), "No exercises found for muscle: " + muscle, Toast.LENGTH_SHORT).show();
                             } else {
@@ -80,22 +82,32 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
     }
-    public void createButton(Map<String, Object> exercise1, int i) {
-        // Get reference to the LinearLayout with ID "line1" in your XML layout
-        LinearLayout linear = findViewById(R.id.layout1);
 
-        // Set up layout parameters for the Button
+    public void createButton(Map<String, Object> exercise1, int i){
+        LinearLayout linear = (LinearLayout) findViewById(R.id.layout1);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-
         Button btn = new Button(this);
         btn.setId(i);
         int id_ = btn.getId();
         btn.setText((String) exercise1.get("name"));
+        //btn.setBackgroundColor(Color.rgb(70, 80, 90));
         linear.addView(btn, params);
         Button btn1 = ((Button) findViewById(id_));
+        btn1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                exerciseDocument = (String) exercise1.get("document");
+                Intent i = new Intent(getApplicationContext(), EditExerciseActivity.class);
+                i.putExtra("userDocument", document);
+                i.putExtra("workoutDocument", exerciseDocument);
+                startActivity(i);
+            }
+        });
     }
+
+
 
 
 
