@@ -44,6 +44,7 @@ public class ExerciseActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back_button8);
         allExercises = findViewById(R.id.all_exercises_button);
         myExercises = findViewById(R.id.my_exercises_button);
+        Button search = findViewById(R.id.search_exercises);
 
 
 
@@ -65,6 +66,14 @@ public class ExerciseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), MyExercisesActivity.class);
+                i.putExtra("Document", document);
+                startActivity(i);
+            }
+        });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
                 i.putExtra("Document", document);
                 startActivity(i);
             }

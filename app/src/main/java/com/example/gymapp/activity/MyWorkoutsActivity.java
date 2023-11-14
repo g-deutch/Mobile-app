@@ -11,7 +11,6 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -42,7 +41,7 @@ public class MyWorkoutsActivity extends AppCompatActivity {
 
         favoritesButton = findViewById(R.id.favorites_button);
         preMadeButton = findViewById(R.id.premade_button);
-        searchButton = findViewById(R.id.search_button);
+        searchButton = findViewById(R.id.search_button2);
         backButton = findViewById(R.id.back_button2);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +62,12 @@ public class MyWorkoutsActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+
+                Intent i = new Intent(getApplicationContext(), SearchWorkoutsActivity.class);
                 i.putExtra("Document", document);
                 startActivity(i);
+
+
             }
         });
 

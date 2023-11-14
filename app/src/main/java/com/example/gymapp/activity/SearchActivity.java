@@ -1,10 +1,8 @@
 package com.example.gymapp.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
     FirebaseFirestore db  = FirebaseFirestore.getInstance();
     Map<String,Object> exercise;
 
-    public void refreshExerciseList(final String muscle) {
+    public void refreshExerciseList( String muscle) {
         db.collection("users").document(document).collection("myExercises")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -65,7 +63,7 @@ public class SearchActivity extends AppCompatActivity {
                                 if (exerciseData.containsKey("muscle") && String.valueOf(exerciseData.get("muscle")).toLowerCase().contains(muscle.toLowerCase())) {
                                     exerciseData.put("document", document.getId());
                                     exercises.add(exerciseData);
-                                    createButton(exercise, i);
+                                    createButton(exerciseData, i);
                                     i++;
                                 }
                             }
@@ -82,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
     }
     public void createButton(Map<String, Object> exercise1, int i) {
         // Get reference to the LinearLayout with ID "line1" in your XML layout
-        LinearLayout linear = findViewById(R.id.layout1);
+        LinearLayout linear = findViewById(R.id.layout3);
 
         // Set up layout parameters for the Button
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -95,6 +93,15 @@ public class SearchActivity extends AppCompatActivity {
         btn.setText((String) exercise1.get("name"));
         linear.addView(btn, params);
         Button btn1 = ((Button) findViewById(id_));
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), EditExerciseActivity.class);
+                i.putExtra("userDocument", document);
+                i.putExtra("workoutDocument", (String) exercise1.get("document"));
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -109,9 +116,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.fragment_search);
         document = getIntent().getExtras().getString("Document");
 
-        backButton = findViewById(R.id.back_button3);
-        SearchButton = findViewById(R.id.search_button);
-        SearchWord = findViewById(R.id.textInputEditText);
+        backButton = findViewById(R.id.back_button11);
+        SearchButton = findViewById(R.id.search_button2);
+        SearchWord = findViewById(R.id.textInputEditText1);
 
 
 
