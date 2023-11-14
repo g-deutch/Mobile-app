@@ -2,17 +2,17 @@ package model;
 
 public class Exercise {
     private String name;
-    private String muscleGroup;
-    private String previewScr;
+    private String muscle;
+    private String previewSrc;
 
     public Exercise() {
         // Default constructor required for calls to DataSnapshot.getValue(Exercise.class)
     }
 
-    public Exercise(String name, String muscleGroup, String previewScr) {
+    public Exercise(String name, String muscle, String previewSrc) {
         this.name = name;
-        this.muscleGroup = muscleGroup;
-        this.previewScr = previewScr;
+        this.muscle = muscle;
+        this.previewSrc = previewSrc;
     }
 
     public String getName() {
@@ -23,20 +23,20 @@ public class Exercise {
         this.name = name;
     }
 
-    public String getMuscleGroup() {
-        return muscleGroup;
+    public String getMuscle() {
+        return muscle;
     }
 
-    public void setMuscleGroup(String muscleGroup) {
-        this.muscleGroup = muscleGroup;
+    public void setMuscle(String muscle) {
+        this.muscle = muscle;
     }
 
-    public String getPreviewScr() {
-        return previewScr;
+    public String getPreviewSrc() {
+        return previewSrc;
     }
 
-    public void setPreviewScr(String previewScr) {
-        this.previewScr = previewScr;
+    public void setPreviewSrc(String previewSrc) {
+        this.previewSrc = previewSrc;
     }
 
 

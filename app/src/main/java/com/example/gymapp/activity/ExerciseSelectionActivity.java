@@ -88,9 +88,11 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
                     .add(workout)
                     .addOnSuccessListener(documentReference -> {
                         Toast.makeText(this, "Workout saved successfully", Toast.LENGTH_SHORT).show();
+                        finish();
                     })
                     .addOnFailureListener(e -> {
                         Toast.makeText(this, "Error saving workout", Toast.LENGTH_SHORT).show();
+                        finish();
                     });
         } else {
             Toast.makeText(this, "User not identified", Toast.LENGTH_SHORT).show();
