@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymapp.R;
 import com.example.gymapp.adapter.ExerciseAdapter;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -33,10 +34,12 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
     private ExerciseAdapter exerciseAdapter;
     private Button buttonSaveWorkout, buttonNextDay, buttonPreviousDay;
     private TextView textViewCurrentDay;
+    private String document;
     private int currentDayNumber = 1; // Start from day 1
     private int totalWorkoutDays; // Total number of workout days
     private String workoutDayType;
     private EditText editTextWorkoutName;
+    List<String> documents = new ArrayList<>();
 
 
 
@@ -44,6 +47,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_selection);
+        document = getIntent().getExtras().getString("Document");
 
         editTextWorkoutName = findViewById(R.id.editTextWorkoutName);
 
@@ -112,15 +116,26 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
                 muscles = Arrays.asList("Quadriceps", "Hamstrings", "Calves", "Glutes");
                 break;
         }
+        documents.clear();
 
-        db.collection("exercises")
+        db.collection("users").document(document).collection("myExercises")
                 .whereIn("muscle", muscles)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (queryDocumentSnapshots.isEmpty()) {
                         Log.d("ExerciseSelection", "No exercises found for muscle group: " + workoutDayType);
                     } else {
+                        for (DocumentSnapshot document:queryDocumentSnapshots
+                             ) {
+                            documents.add(document.getId());
+                        }
                         List<Exercise> exercises = queryDocumentSnapshots.toObjects(Exercise.class);
+                        int i = 0;
+                        for (Exercise exercise:exercises
+                             ) {
+                            exercise.setDocument(documents.get(i));
+                            i++;
+                        }
                         exerciseAdapter.updateExercises(exercises);
                         Log.d("ExerciseSelection", "Exercises fetched: " + exercises.size());
                         for (Exercise exercise : exercises) {

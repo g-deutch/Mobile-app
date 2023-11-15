@@ -21,6 +21,7 @@ public class WorkoutCreatorActivity extends AppCompatActivity {
     private RadioGroup radioGroupSplits;
     private Button buttonToExerciseSelection;
     private String selectedWorkoutDay;
+    private String document;
     private final String selectedSplit = "Push/Pull/Legs"; // Set the split to PPL by default
 
     @Override
@@ -43,7 +44,7 @@ public class WorkoutCreatorActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        document = getIntent().getExtras().getString("Document");
         // Initialize UI components
         spinnerWorkoutDays = findViewById(R.id.spinnerWorkoutDays);
         buttonToExerciseSelection = findViewById(R.id.buttonToExerciseSelection);
@@ -82,6 +83,7 @@ public class WorkoutCreatorActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(WorkoutCreatorActivity.this, ExerciseSelectionActivity.class);
                     intent.putExtra("WORKOUT_DAY", workoutDayType);
+                    intent.putExtra("Document", document);
                     startActivity(intent);
                 } else {
                     Toast.makeText(WorkoutCreatorActivity.this, "Please select workout days", Toast.LENGTH_LONG).show();

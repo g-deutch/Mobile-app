@@ -7,9 +7,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -17,111 +19,142 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.example.gymapp.R;
 import com.example.gymapp.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-public class SearchWorkoutsActivity extends AppCompatActivity {
+
+public class ViewWorkoutActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
-    private static final String TAG = "SearchWorkouts";
+    private static final String TAG = "View Workout";
     private static Button backButton;
-    private static Button SearchButton;
-    private static EditText SearchWord;
+    private static TextView name;
 
-    private static String document;
+
+
+    private static Switch favorite;
+
+
     private static String userDocument;
-
-
     private static String workoutDocument;
-    int id;
+    Map<String, Object> workout = new HashMap<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    ArrayList<Map<String, Object>> workouts = new ArrayList<>();
-    FirebaseFirestore db  = FirebaseFirestore.getInstance();
-    Map<String,Object> workout;
 
-    public void refreshWorkoutList( String workoutString) {
-        db.collection("users").document(document).collection("myWorkouts")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
+
+    public void getWorkout(){
+
+        db.collection("users").document(userDocument).collection("myWorkouts").document(workoutDocument).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(Task<QuerySnapshot> task) {
+                    public void onComplete( Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            int i = 0;
-                            workouts.clear(); // Clear existing exercises before refreshing the list
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Map<String, Object> workoutData = document.getData();
-                                if (String.valueOf(workoutData.get("name")).toLowerCase().contains(workoutString.toLowerCase())) {
-                                    workoutData.put("document", document.getId());
-                                    workouts.add(workoutData);
-                                    createButton(workoutData, i);
+                            DocumentSnapshot doc = task.getResult();
+                            if (doc.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + doc.getData());
+                                workout = doc.getData();
+                                int i = 0;
+                                for (Map<String, Object> exercise:  (ArrayList<Map <String, Object>>) workout.get("exercises")
+                                     ) {
+                                    createButton(exercise, i);
                                     i++;
                                 }
-                            }
-                            if (workouts.isEmpty()) {
-                                Toast.makeText(getApplicationContext(), "No workouts found with name: " + workoutString, Toast.LENGTH_SHORT).show();
+                                setTextFields();
+                                //setSwitches();
+
+                                //imageEx.setImageURI(Uri.parse((String) exercise.get("previewSrc")));
+                                //videoEx.setVideoURI(Uri.parse((String) exercise.get("previewSrc")));
                             } else {
-                                Toast.makeText(getApplicationContext(), i + " workouts found with name: " + workoutString, Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "No such document");
                             }
+
                         } else {
-                            Log.w(TAG, "Error getting exercises.", task.getException());
+                            Log.w(TAG, "Error getting exercise.", task.getException());
                         }
                     }
                 });
-    }
-    public void createButton(Map<String, Object> exercise1, int i) {
-        // Get reference to the LinearLayout with ID "line1" in your XML layout
-        LinearLayout linear = findViewById(R.id.layout3);
 
-        // Set up layout parameters for the Button
+    }
+    public void createButton(Map<String, Object> exercise1, int i){
+        LinearLayout linear = (LinearLayout) findViewById(R.id.layout4);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-
         Button btn = new Button(this);
         btn.setId(i);
         int id_ = btn.getId();
         btn.setText((String) exercise1.get("name"));
+        //btn.setBackgroundColor(Color.rgb(70, 80, 90));
         linear.addView(btn, params);
         Button btn1 = ((Button) findViewById(id_));
+
+
         btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
 
-                Intent i = new Intent(getApplicationContext(), ViewWorkoutActivity.class);
-                i.putExtra("userDocument", document);
-                i.putExtra("workoutDocument", (String) exercise1.get("document"));
+                String exerciseDocument = (String) exercise1.get("document");
+                Intent i = new Intent(getApplicationContext(), EditExerciseActivity.class);
+                i.putExtra("userDocument", userDocument);
+                i.putExtra("workoutDocument", exerciseDocument);
                 startActivity(i);
-
-
             }
         });
+
+
+    }
+    public void setTextFields(){
+        name.setText((String) workout.get("name"));
+
+
+    }
+    /*
+    public void setSwitches(){
+        if((boolean) exercise.get("active")){
+            active.setChecked(true);
+        }
+        if((boolean) exercise.get("favorite")){
+            active.setChecked(true);
+        }
     }
 
-
-
-
-
-
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "SignUp(Bundle) called");
-        setContentView(R.layout.fragment_search_workouts);
-        document = getIntent().getExtras().getString("Document");
+        Log.d(TAG, "Setting(Bundle) called");
+        setContentView(R.layout.fragment_workout_viewer);
 
-        backButton = findViewById(R.id.back_button11);
-        SearchButton = findViewById(R.id.search_button2);
-        SearchWord = findViewById(R.id.textInputEditText1);
+
+        userDocument = getIntent().getExtras().getString("userDocument");
+        workoutDocument = getIntent().getExtras().getString("workoutDocument");
+
+        backButton = findViewById(R.id.back_button12);
+        name = findViewById(R.id.workout_name);
+
+        favorite = findViewById(R.id.favorite_switch2);
+
+       // videoEx = findViewById(R.id.videoView);
+
+
+
+
+        getWorkout();
+
+
+
 
 
 
@@ -131,18 +164,20 @@ public class SearchWorkoutsActivity extends AppCompatActivity {
                 finish();
             }
         });
-        SearchButton.setOnClickListener(new View.OnClickListener() {
+
+        favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-               // Toast.makeText( getApplicationContext(), "Word: " + SearchWord.getText().toString(), Toast.LENGTH_SHORT).show();
-                String nameToSearch = SearchWord.getText().toString();
-                refreshWorkoutList(nameToSearch);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Map<String, Object> switchChange = new HashMap<>();
+                switchChange.put("favorite", isChecked);
+                //db.collection("users").document(userDocument).collection("myExercises").document(workoutDocument).update(switchChange);
             }
         });
+
+
+
+
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
