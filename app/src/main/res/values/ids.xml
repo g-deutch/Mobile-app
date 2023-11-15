@@ -7,4 +7,6 @@
     <item name="radioButtonUpperLower" type="id" />
     <item name="radioButtonPushPullLegs" type="id" />
     <item name="buttonToExerciseSelection" type="id" />
+    <item name="textViewMuscleGroup" type="id" />
+    <item name="imageViewPreview" type="id" />
 </resources>

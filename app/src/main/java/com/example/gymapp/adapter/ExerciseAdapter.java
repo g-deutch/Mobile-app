@@ -3,8 +3,10 @@ package com.example.gymapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.CheckBox;
+import com.bumptech.glide.Glide;
 
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     public void onBindViewHolder(ExerciseViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
         holder.textViewExerciseName.setText(exercise.getName());
+        holder.textViewMuscleGroup.setText(exercise.getMuscle()); // Set muscle group text
+
+        Glide.with(holder.itemView.getContext())
+                .asGif()
+                .load(exercise.getPreviewSrc())
+                .into(holder.imageViewPreview);
+
         holder.checkBoxExercise.setOnCheckedChangeListener(null);
         holder.checkBoxExercise.setChecked(selectedExercises.contains(exercise));
         holder.checkBoxExercise.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -55,12 +64,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     }
 
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewExerciseName;
+        TextView textViewExerciseName, textViewMuscleGroup;
+        ImageView imageViewPreview;
         CheckBox checkBoxExercise;
 
         public ExerciseViewHolder(View itemView) {
             super(itemView);
             textViewExerciseName = itemView.findViewById(R.id.textViewExerciseName);
+            textViewMuscleGroup = itemView.findViewById(R.id.textViewMuscleGroup); // Muscle group view
+            imageViewPreview = itemView.findViewById(R.id.imageViewPreview);
             checkBoxExercise = itemView.findViewById(R.id.checkBoxExercise);
         }
     }

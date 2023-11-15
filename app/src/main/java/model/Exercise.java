@@ -38,7 +38,4 @@ public class Exercise {
     public void setPreviewSrc(String previewSrc) {
         this.previewSrc = previewSrc;
     }
-
-
-
 }

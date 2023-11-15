@@ -54,6 +54,7 @@
     <string name="push_pull_legs">Push/Pull/Legs</string>
     <string name="proceed_to_exercise_selection">Proceed to Exercise Selection</string>
     <string name="save_workout">Save Workout</string>
+    <string name="workout_name_hint" />
 
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.gymapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,21 +21,35 @@ public class WorkoutCreatorActivity extends AppCompatActivity {
     private RadioGroup radioGroupSplits;
     private Button buttonToExerciseSelection;
     private String selectedWorkoutDay;
-    private String selectedSplit;
+    private final String selectedSplit = "Push/Pull/Legs"; // Set the split to PPL by default
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Respond to the action bar's Up/Home button
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_creator);
 
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         // Initialize UI components
         spinnerWorkoutDays = findViewById(R.id.spinnerWorkoutDays);
-        radioGroupSplits = findViewById(R.id.radioGroupSplits);
         buttonToExerciseSelection = findViewById(R.id.buttonToExerciseSelection);
 
         // Set up the components
         setupSpinner();
-        setupRadioGroup();
         setupButton();
     }
 
@@ -57,38 +72,27 @@ public class WorkoutCreatorActivity extends AppCompatActivity {
         });
     }
 
-    private void setupRadioGroup() {
-        radioGroupSplits.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.radioButtonFullBody) {
-                    selectedSplit = "Full Body";
-                } else if (checkedId == R.id.radioButtonUpperLower) {
-                    selectedSplit = "Upper/Lower";
-                } else if (checkedId == R.id.radioButtonPushPullLegs) {
-                    selectedSplit = "Push/Pull/Legs";
-                } else {
-                    selectedSplit = null;
-                }
-            }
-
-        });
-    }
-
     private void setupButton() {
         buttonToExerciseSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedWorkoutDay != null && selectedSplit != null) {
+                if (selectedWorkoutDay != null) {
+                    int dayNumber = Integer.parseInt(selectedWorkoutDay); // Assuming selectedWorkoutDay is the day number as a string
+                    String workoutDayType = determineWorkoutDayType(dayNumber);
+
                     Intent intent = new Intent(WorkoutCreatorActivity.this, ExerciseSelectionActivity.class);
-                    intent.putExtra("WORKOUT_DAY", selectedWorkoutDay);
-                    intent.putExtra("WORKOUT_SPLIT", selectedSplit);
+                    intent.putExtra("WORKOUT_DAY", workoutDayType);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(WorkoutCreatorActivity.this, "Please select both workout day and split", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WorkoutCreatorActivity.this, "Please select workout days", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
+    private String determineWorkoutDayType(int dayNumber) {
+        String[] cycle = {"Push", "Pull", "Legs"};
+        return cycle[(dayNumber - 1) % cycle.length]; // Determine the workout type based on the day number
+    }
+
 }
 

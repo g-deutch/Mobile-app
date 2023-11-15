@@ -34,46 +34,6 @@
             android:entries="@array/workout_days_array"
             android:layout_marginBottom="30dp"/>
 
-        <!-- Workout Split Selection -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/choose_your_workout_split"
-            android:textSize="20sp"
-            android:layout_marginBottom="10dp"/>
-
-        <RadioGroup
-            android:id="@+id/radioGroupSplits"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp">
-
-            <RadioButton
-                android:id="@+id/radioButtonFullBody"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/full_body"
-                android:textSize="18sp"
-                android:layout_marginBottom="15dp"/>
-
-            <RadioButton
-                android:id="@+id/radioButtonUpperLower"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upper_lower"
-                android:textSize="18sp"
-                android:layout_marginBottom="15dp"/>
-
-            <RadioButton
-                android:id="@+id/radioButtonPushPullLegs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/push_pull_legs"
-                android:textSize="18sp"
-                android:layout_marginBottom="30dp"/>
-        </RadioGroup>
-
         <!-- Button to Proceed to Exercise Selection -->
         <Button
             android:id="@+id/buttonToExerciseSelection"
