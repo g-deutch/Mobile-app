@@ -44,14 +44,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/SearchButton"
+            app:layout_constraintBottom_toTopOf="@+id/back_button11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
         <ScrollView
             android:id="@+id/scroll"
-            android:layout_width="380dp"
-            android:layout_height="450dp"
+            android:layout_width="589dp"
+            android:layout_height="150dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText1">

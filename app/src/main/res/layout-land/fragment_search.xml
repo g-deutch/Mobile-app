@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SearchWorkoutsFragment">
+    tools:context=".fragment.SearchFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/textInputEditText1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="Enter a workout name"
+            android:hint="Enter a muscle to search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -44,14 +44,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/SearchButton"
+            app:layout_constraintBottom_toTopOf="@+id/back_button11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scroll" />
 
         <ScrollView
             android:id="@+id/scroll"
-            android:layout_width="380dp"
-            android:layout_height="450dp"
+            android:layout_width="580dp"
+            android:layout_height="145dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputEditText1">
