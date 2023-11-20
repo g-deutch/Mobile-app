@@ -43,6 +43,7 @@ public class SearchWorkoutsActivity extends AppCompatActivity {
 
 
     private static String workoutDocument;
+
     int id;
 
     ArrayList<Map<String, Object>> workouts = new ArrayList<>();
@@ -117,6 +118,8 @@ public class SearchWorkoutsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "SignUp(Bundle) called");
         setContentView(R.layout.fragment_search_workouts);
+        LinearLayout linear = findViewById(R.id.layout3);
+
         document = getIntent().getExtras().getString("Document");
 
         backButton = findViewById(R.id.back_button11);
@@ -134,6 +137,7 @@ public class SearchWorkoutsActivity extends AppCompatActivity {
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                linear.removeAllViews();
                // Toast.makeText( getApplicationContext(), "Word: " + SearchWord.getText().toString(), Toast.LENGTH_SHORT).show();
                 String nameToSearch = SearchWord.getText().toString();
                 refreshWorkoutList(nameToSearch);
@@ -193,6 +197,9 @@ public class SearchWorkoutsActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() called");
+        LinearLayout linear = findViewById(R.id.layout3);
+        linear.removeAllViews();
+        SearchButton.performClick();
     }
     @Override
     public void onStop() {

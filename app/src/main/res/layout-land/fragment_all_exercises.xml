@@ -28,12 +28,14 @@
 
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="391dp"
-        android:layout_height="633dp"
+        android:layout_width="546dp"
+        android:layout_height="213dp"
         app:layout_constraintBottom_toTopOf="@+id/back_button9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_exercises_text">
+        app:layout_constraintTop_toBottomOf="@+id/all_exercises_text"
+        app:layout_constraintVertical_bias="0.727">
 
         <LinearLayout
             android:id="@+id/layout3"

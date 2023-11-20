@@ -14,9 +14,9 @@
         android:text="Muscle:"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
+        app:layout_constraintHorizontal_bias="0.467"
+        app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/equipment_text" />
 
     <TextView
@@ -26,8 +26,9 @@
         android:text="Equipment:"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
+        app:layout_constraintHorizontal_bias="0.472"
+        app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/level_text" />
 
     <TextView
@@ -49,6 +50,8 @@
         android:checked="false"
         android:text="Active"
         android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 
@@ -61,26 +64,25 @@
         android:text="Favorite"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
-        app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 
     <TextView
         android:id="@+id/level_text"
-        android:layout_width="387dp"
-        android:layout_height="40dp"
+        android:layout_width="181dp"
+        android:layout_height="46dp"
         android:text="Level: "
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_switch" />
+        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
+        app:layout_constraintStart_toEndOf="@+id/active_switch"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 
     <ImageView
         android:id="@+id/workout_image"
-        android:layout_width="388dp"
-        android:layout_height="236dp"
+        android:layout_width="491dp"
+        android:layout_height="160dp"
         android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"

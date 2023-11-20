@@ -115,6 +115,8 @@ public class SearchActivity extends AppCompatActivity {
         Log.d(TAG, "SignUp(Bundle) called");
         setContentView(R.layout.fragment_search);
         document = getIntent().getExtras().getString("Document");
+        LinearLayout linear = findViewById(R.id.layout3);
+        linear.removeAllViews();
 
         backButton = findViewById(R.id.back_button11);
         SearchButton = findViewById(R.id.search_button2);
@@ -131,6 +133,8 @@ public class SearchActivity extends AppCompatActivity {
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                linear.removeAllViews();
                // Toast.makeText( getApplicationContext(), "Word: " + SearchWord.getText().toString(), Toast.LENGTH_SHORT).show();
                 String muscleToSearch = SearchWord.getText().toString();
                 refreshExerciseList(muscleToSearch);
@@ -190,6 +194,9 @@ public class SearchActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() called");
+        LinearLayout linear = findViewById(R.id.layout3);
+        linear.removeAllViews();
+        SearchButton.performClick();
     }
     @Override
     public void onStop() {
