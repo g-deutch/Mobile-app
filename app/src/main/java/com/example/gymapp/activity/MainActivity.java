@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button signInButton;
     private Button signUpButton;
-    ArrayList<Map<String, Object>> users = new ArrayList<>();
-    FirebaseFirestore db  = FirebaseFirestore.getInstance();
-    Map<String,Object> user;
+    static ArrayList<Map<String, Object>> users = new ArrayList<>();
+    static FirebaseFirestore db  = FirebaseFirestore.getInstance();
+    static Map<String,Object> user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
 
                 //line below allows sign in with no user or password
-                if(signIn(username, password)){
+                if(signIn(username, password, users)){
                     Intent i = new Intent(getApplicationContext(), MainPageActivity.class);
                     storeUserDocumentId((String) user.get("document"));
 
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void refreshUserList(){
+    public static void refreshUserList(){
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    public boolean signIn(String userName, String Password){
+    public static boolean signIn(String userName, String Password, ArrayList<Map<String, Object>> users){
 
         boolean foundPerson = false;
         for(Map<String, Object> user1: users){

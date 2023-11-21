@@ -10,6 +10,9 @@ plugins {
 android {
     namespace = "com.example.gymapp"
     compileSdk = 34
+    testOptions {
+        unitTests.isIncludeAndroidResources= true
+    }
 
     defaultConfig {
         applicationId = "com.example.gymapp"
@@ -23,6 +26,7 @@ android {
             useSupportLibrary = true
         }
     }
+
 
     buildTypes {
         release {
@@ -89,6 +93,9 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    testImplementation("androidx.test:core:1.5.0")
+    testImplementation("org.robolectric:robolectric:4.9.2")
+
 
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22") {
