@@ -9,17 +9,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gymapp.R;
+import com.example.gymapp.adapter.AllExercisesAdapter;
 import com.example.gymapp.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -33,93 +39,84 @@ public class AllExercisesActivity extends AppCompatActivity {
 
     private static final String TAG = "All Exercises";
     private static Button backButton;
-    private static String userDocument;
+    public static String userDocument;
+    private RecyclerView recyclerView;
+    private AllExercisesAdapter  adapter;
     private static String exerciseDocument;
     int id;
 
     ArrayList<Map<String, Object>> exercises = new ArrayList<>();
     FirebaseFirestore db  = FirebaseFirestore.getInstance();
+
+    private static final int PAGE_SIZE = 10;
+    private DocumentSnapshot lastVisible;
+    private boolean isLoading = false;
     Map<String,Object> exercise;
 
-
-    public void refreshExerciseList(){
-        db.collection("users").document(userDocument).collection("myExercises")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete( Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int i = 0;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                                Map<String,Object> exercise1 = document.getData();
-                                exercise1.put("document", document.getId());
-                                exercises.add(exercise1);
-                                createButton(exercise1, i );
-                                i++;
-                            }
-                            //createButtons();
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-    public void createButton(Map<String, Object> exercise1, int i){
-        LinearLayout linear = (LinearLayout) findViewById(R.id.layout3);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        Button btn = new Button(this);
-        btn.setId(i);
-        int id_ = btn.getId();
-        btn.setText((String) exercise1.get("name"));
-        //btn.setBackgroundColor(Color.rgb(70, 80, 90));
-        linear.addView(btn, params);
-        Button btn1 = ((Button) findViewById(id_));
-
-
-        btn1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-
-                exerciseDocument = (String) exercise1.get("document");
-                Intent i = new Intent(getApplicationContext(), EditExerciseActivity.class);
-                i.putExtra("userDocument", userDocument);
-                i.putExtra("workoutDocument", exerciseDocument);
-                startActivity(i);
-            }
-        });
-
-
-    }
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "SignUp(Bundle) called");
-        //binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.fragment_all_exercises);
         userDocument = getIntent().getExtras().getString("Document");
+        Log.d(TAG, "User Document ID: " + userDocument); // Log statement to validate userDocument
 
-        //setSupportActionBar(binding.toolbar);
 
-        backButton = findViewById(R.id.back_button9);
-        //Button test = findViewById(R.id.button);
-        //deleteWorkoutButton = findViewById(R.id.delete_workout_button);
+        recyclerView = findViewById(R.id.recyclerView);
+        adapter = new AllExercisesAdapter(this, exercises, userDocument);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         refreshExerciseList();
 
-
-
+        Button backButton = findViewById(R.id.back_button9);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+    }
+    public void refreshExerciseList() {
+        if (isLoading) return;
+        isLoading = true;
 
+        Query query =
+        db.collection("users").document(userDocument).collection("myExercises");
+                //.get();// Simpler query without orderBy
+                //.orderBy("timestamp") // Ensure there's an index on this field
+                //.limit(PAGE_SIZE);
 
+        if (lastVisible != null) {
+            query = query.startAfter(lastVisible);
+        }
 
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                isLoading = false;
+                if (task.isSuccessful()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    Log.d(TAG, "QuerySnapshot Size: " + querySnapshot.size());
+
+                    Log.w(TAG, "getting documents.", task.getException());
+                    boolean qs = querySnapshot.isEmpty();
+                    if (!(querySnapshot.isEmpty())) {
+                        lastVisible = querySnapshot.getDocuments().get(querySnapshot.size() - 1);
+                        for (QueryDocumentSnapshot document : querySnapshot) {
+                            Map<String, Object> exercise = document.getData();
+                            exercise.put("document", document.getId());
+                            exercises.add(exercise);
+                        }
+                        Log.d(TAG, "Number of exercises fetched: " + exercises.size());
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.d(TAG, "No documents found");
+
+                    }
+                } else {
+                    Log.w(TAG, "Error getting documents.", task.getException());
+                }
+            }
+        });
     }
 
     @Override
