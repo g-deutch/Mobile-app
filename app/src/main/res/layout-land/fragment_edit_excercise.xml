@@ -14,8 +14,6 @@
         android:text="Muscle:"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
-        app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/equipment_text" />
 
@@ -26,8 +24,6 @@
         android:text="Equipment:"
         android:textAlignment="textStart"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
-        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/level_text" />
 
@@ -50,20 +46,7 @@
         android:checked="false"
         android:text="Active"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
-        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
-
-    <Switch
-        android:id="@+id/favorite_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:checked="false"
-        android:showText="false"
-        android:text="Favorite"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 
     <TextView
@@ -73,7 +56,7 @@
         android:text="Level: "
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/favorite_switch"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/active_switch"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 

@@ -50,7 +50,7 @@ public class WorkoutsActivity extends AppCompatActivity {
         settingsButton = findViewById(R.id.settings_workout_button);
         viewWorkoutsButton = findViewById(R.id.view_workouts_button);
         newWorkoutButton = findViewById((R.id.new_workout_button));
-        supriseButton = findViewById(R.id.surprise_button);
+
 
 
 

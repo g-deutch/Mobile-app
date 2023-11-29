@@ -144,7 +144,7 @@ public class ViewWorkoutActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back_button12);
         name = findViewById(R.id.workout_name);
 
-        favorite = findViewById(R.id.favorite_switch2);
+
 
        // videoEx = findViewById(R.id.videoView);
 
@@ -165,14 +165,7 @@ public class ViewWorkoutActivity extends AppCompatActivity {
             }
         });
 
-        favorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Map<String, Object> switchChange = new HashMap<>();
-                switchChange.put("favorite", isChecked);
-                //db.collection("users").document(userDocument).collection("myExercises").document(workoutDocument).update(switchChange);
-            }
-        });
+
 
 
 

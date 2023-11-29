@@ -18,14 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/favorite_switch2"
-        android:layout_width="114dp"
-        android:layout_height="48dp"
-        android:text="Favorite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workout_name" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="405dp"
@@ -35,7 +27,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_switch2" />
+        app:layout_constraintTop_toBottomOf="@+id/workout_name" />
 
     <ScrollView
         android:layout_width="413dp"

@@ -49,20 +49,8 @@
         android:checked="false"
         android:text="Active"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
-
-    <Switch
-        android:id="@+id/favorite_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:checked="false"
-        android:showText="false"
-        android:text="Favorite"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
-        app:layout_constraintStart_toEndOf="@+id/active_switch"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseName" />
 
     <TextView
@@ -74,7 +62,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favorite_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/active_switch" />
 
     <ImageView
         android:id="@+id/workout_image"

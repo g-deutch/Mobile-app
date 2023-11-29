@@ -39,7 +39,7 @@ public class MyWorkoutsActivity extends AppCompatActivity {
         document = getIntent().getExtras().getString("Document");
         //setSupportActionBar(binding.toolbar);
 
-        favoritesButton = findViewById(R.id.favorites_button);
+
         preMadeButton = findViewById(R.id.premade_button);
         searchButton = findViewById(R.id.search_button2);
         backButton = findViewById(R.id.back_button2);
